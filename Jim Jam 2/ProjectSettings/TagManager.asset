@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Item
+  - Gathering Station
+  - Alchemy Station
+  - Ouroboros Head
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ouroboros Body
+    uniqueID: 954006101
+    locked: 0
+  - name: Arena
+    uniqueID: 3090280685
+    locked: 0
+  - name: Stations
+    uniqueID: 456894481
+    locked: 0
+  - name: Alchemy UI
+    uniqueID: 2146244407
+    locked: 0
+  - name: Player
+    uniqueID: 2508429975
+    locked: 0
+  - name: Items
+    uniqueID: 1372264513
+    locked: 0
+  - name: Ouroboros Head
+    uniqueID: 134090687
+    locked: 0
