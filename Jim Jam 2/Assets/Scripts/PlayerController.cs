@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour {
 
     public OuroborosSystem ouroborosSystem;
 
+    private GameManager gameManager;
+
+    private Animator animator;
 
 
 	// Use this for initialization
@@ -58,8 +61,23 @@ public class PlayerController : MonoBehaviour {
         usingStation = false;
 	}
 
+    private void Awake()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        animator = GetComponentInChildren<Animator>();
+    }
+
     private void Update()
     {
+        //can only move when level is active
+        canMove = gameManager.isLevelActive;
+
+        if (isMoving)
+            animator.SetBool("Moving", true);
+        else
+            animator.SetBool("Moving", false);
+           
+
         //Quit the Game
         if (Input.GetKey("escape"))
         {
@@ -80,20 +98,24 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Set IsMoving
-        if (horizontal != 0)
+        if (horizontal != 0 || vertical != 0)
         {
             isMoving = true;
         }
-        else if (horizontal == 0)
+        else if (horizontal == 0 && vertical == 0)
         {
             isMoving = false;
         }
 
         //If there is input, move the player
-        if (horizontal != 0)
-            GetComponent<Transform>().Translate(new Vector3(horizontal * speed, 0.0f, 0.0f) * Time.deltaTime);
-        if (vertical != 0)
-            GetComponent<Transform>().Translate(new Vector3(0.0f, vertical * speed, 0.0f) * Time.deltaTime);
+        if (canMove)
+        {
+            if (horizontal != 0)
+                GetComponent<Transform>().Translate(new Vector3(horizontal * speed, 0.0f, 0.0f) * Time.deltaTime);
+            if (vertical != 0)
+                GetComponent<Transform>().Translate(new Vector3(0.0f, vertical * speed, 0.0f) * Time.deltaTime);
+        }
+
 
         //Flip the player direction if movement is changed
         if (horizontal > 0 && !isFacingRight)
