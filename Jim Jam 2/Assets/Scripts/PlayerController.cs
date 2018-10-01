@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -39,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 
     private Animator animator;
 
+    private bool inMenu = true;
+
 
 	// Use this for initialization
 	void Start () {
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour {
 
         stationUseBufferTimer = stationUseBufferTimerInit;
 
-        ouroborosSystem = GameObject.Find("Ouroboros System").GetComponent<OuroborosSystem>();
+
 
         canMove = true;
         holdingItem = false;
@@ -63,14 +66,33 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        //Check if in menu
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            inMenu = true;
+        else
+            inMenu = false;
+
+
+        if (!inMenu)
+        {
+            ouroborosSystem = GameObject.Find("Ouroboros System").GetComponent<OuroborosSystem>();
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        }
+            
+
         animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
+
+
+
+
         //can only move when level is active
-        canMove = gameManager.isLevelActive;
+        if (!inMenu)
+            canMove = gameManager.isLevelActive;
 
         if (isMoving)
             animator.SetBool("Moving", true);

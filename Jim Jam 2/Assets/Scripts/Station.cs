@@ -12,14 +12,20 @@ public class Station : MonoBehaviour {
     [HideInInspector]
     public bool inUse;
 
+    public AudioSource audioSource;
+    public AudioClip completeStationClip;
+
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
 
         inUse = false;
 
         progressTimer = 0.0f;
 
+        audioSource = GetComponent<AudioSource>();
+
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,6 +51,7 @@ public class Station : MonoBehaviour {
 
     public virtual void CompleteStation()
     {
-
+        audioSource.clip = completeStationClip;
+        audioSource.Play();
     }
 }

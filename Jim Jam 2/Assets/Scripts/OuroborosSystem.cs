@@ -39,6 +39,14 @@ public class OuroborosSystem : MonoBehaviour {
     public GameObject bigHeart;
     public GameObject sadFace;
 
+
+    public AudioClip oneCorrectClip;
+    public AudioClip bothCorrectClip;
+    public AudioClip noneCorrectClip;
+    public AudioClip completeClip;
+
+    private AudioSource audioSource;
+
     float value = 0.0f;
 
     // Use this for initialization
@@ -48,6 +56,8 @@ public class OuroborosSystem : MonoBehaviour {
         atTail = false;
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        audioSource = GetComponent<AudioSource>();
 
         isGrowing = false;
 
@@ -78,6 +88,8 @@ public class OuroborosSystem : MonoBehaviour {
         {
             atTail = true;
             fillAmount = 100.0f;
+            audioSource.clip = completeClip;
+            audioSource.Play();
             StopGrowing();
         }
             
@@ -209,16 +221,22 @@ public class OuroborosSystem : MonoBehaviour {
     void EmitSmallHeart()
     {
         Instantiate(smallHeart, transform.position, Quaternion.identity);
+        audioSource.clip = oneCorrectClip;
+        audioSource.Play();
     }
 
     void EmitBigHeart()
     {
         Instantiate(bigHeart, transform.position, Quaternion.identity);
+        audioSource.clip = bothCorrectClip;
+        audioSource.Play();
     }
 
     void EmitSadFace()
     {
         Instantiate(sadFace, transform.position, Quaternion.identity);
+        audioSource.clip = noneCorrectClip;
+        audioSource.Play();
     }
 
     public static float EaseOutQuad(float start, float end, float value)

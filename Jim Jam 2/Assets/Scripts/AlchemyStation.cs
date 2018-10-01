@@ -15,16 +15,23 @@ public class AlchemyStation : Station {
     private PlayerController player;
     private Transform itemPosition;
 
+    //private AudioSource audioSource;
+
+    public AudioClip popClip;
+
 
     public GameObject result;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+
+        base.Start();
 
         haveBothElements = false;
 
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         itemPosition = GameObject.Find("Item Position").GetComponent<Transform>();
+        //audioSource = GetComponent<AudioSource>();
 
     }
 	
@@ -47,6 +54,8 @@ public class AlchemyStation : Station {
 
     public void PlaceItem(Item item)
     {
+        audioSource.clip = popClip;
+        audioSource.Play();
 
         if (element1 == null)
         {
@@ -71,6 +80,9 @@ public class AlchemyStation : Station {
 
     public override void CompleteStation()
     {
+
+        base.CompleteStation();
+
         GameObject clone;
         clone = Instantiate(result, itemPosition.position, Quaternion.identity) as GameObject;
         clone.GetComponent<Item>().isHeld = true;

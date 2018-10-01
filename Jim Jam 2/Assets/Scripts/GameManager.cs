@@ -16,13 +16,14 @@ public class GameManager : MonoBehaviour {
     private Text endingText;
 
     public float levelStartDelay = 2f;
-    public float levelEndDelay = 0f;
+    public float levelEndDelay = 3f;
     public static GameManager instance = null;
 
     private Text levelText;
     private Text levelTimerText;
     private Text readyText;
     private Text gameOverText;
+    private Text endingLevelText;
     private Text winText;
 
     public static int level = 1;
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour {
 
     public float startingHeadValue;
 
+    private PlayerController player;
+
     // Use this for initialization
     void Awake () {
 
@@ -48,6 +51,8 @@ public class GameManager : MonoBehaviour {
             instance = this;
         else if (instance != null)
             Destroy(gameObject);
+
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
 
         //DontDestroyOnLoad(gameObject);
 
@@ -110,6 +115,9 @@ public class GameManager : MonoBehaviour {
 
         //Find GameOver text
         gameOverText = GameObject.Find("GameOverText").GetComponent<Text>();
+
+        //Find Ending Level Text
+        endingLevelText = GameObject.Find("EndingLevelText").GetComponent<Text>();
 
         //Find Ending Text
         endingText = GameObject.Find("EndingText").GetComponent<Text>();
@@ -243,6 +251,18 @@ public class GameManager : MonoBehaviour {
     {
         gameTimer += 10.0f + (2.0f * level);
         level++;
+
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+
+        player.heldItem = null;
+        player.holdingItem = false;
+
+        player.usingStation = false;
+        player.stationBeingUsed = null;
+
+        foreach (GameObject item in items)
+            DestroyImmediate(item);
+
         DestroyGatheringStations();
         ouroborosSystem.StartResetting();
         StartLevel();
@@ -277,6 +297,8 @@ public class GameManager : MonoBehaviour {
 
         gameOverText.text = "Game Over";
 
+        endingLevelText.text = "You made it to level: " + level.ToString();
+
         doingGameOverPause = true;
 
         //Remove Game Over Text after delay
@@ -286,13 +308,14 @@ public class GameManager : MonoBehaviour {
     void HideGameOverText()
     {
         gameOverText.text = "";
+        endingLevelText.text = "";
 
         doingGameOverPause = false;
 
         level = 1;
 
         //Restart level if you lose
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 
     public void WinLevel()

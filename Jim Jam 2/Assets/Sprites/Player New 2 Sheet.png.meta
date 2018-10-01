@@ -11,6 +11,7 @@ TextureImporter:
     21300012: PlayerBackHand
     21300014: PlayerFrontLeg
     21300016: PlayerBackLeg
+    21300018: PlayerHappyEyes
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -290,6 +291,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 24583d34891595b4aa8a4e47c7a23771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHappyEyes
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 373
+        width: 79
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c1e1e23dff65140ae9f41e719949f2
       vertices: []
       indices: 
       edges: []

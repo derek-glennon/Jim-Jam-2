@@ -22,7 +22,9 @@ public class GatheringStation : Station {
     private Transform itemPosition;
 
     // Use this for initialization
-    void Start () {
+    public override void Start () {
+
+        base.Start();
 
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         itemPosition = GameObject.Find("Item Position").GetComponent<Transform>();
@@ -66,6 +68,9 @@ public class GatheringStation : Station {
 
     public override void CompleteStation()
     {
+
+        base.CompleteStation();
+
         GameObject clone;
         clone = Instantiate(item, itemPosition.position, Quaternion.identity) as GameObject;
         clone.GetComponent<Item>().isHeld = true;
